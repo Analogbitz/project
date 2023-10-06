@@ -8,6 +8,7 @@ import ManagePage from "./pages/manage"
 import MechanicPage from "./pages/Mechanic"
 import CarPage from "./pages/Cars"
 import UserPage from "./pages/Users"
+import FormPage from "./pages/form"
 function App() {
 
   return (
@@ -21,7 +22,9 @@ function App() {
             <Box m="20px">
               <Routes>
                 <Route path="/admin" element={<MainPage />} />
+                <Route path="/admin/form" element={<FormPage />} />
                 <Route path="/admin/manage" element={<ManagePage />} />
+
                 <Route path="/admin/manage/users" element={<UserPage />} />
                 <Route path="/admin/manage/cars" element={<CarPage />} />
                 <Route path="/admin/manage/mechanics" element={<MechanicPage />} />

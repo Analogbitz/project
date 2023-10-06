@@ -9,6 +9,7 @@ import {
 import { Box, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonIcon from '@mui/icons-material/Person';
@@ -60,7 +61,7 @@ const SideBar = () => {
                                         ml="15px"
                                     >
                                         
-                                        <IconButton onClick={() => setisCollapsed(!isCollapsed)}>
+                                        <IconButton onClick={() => setisCollapsed(!isCollapsed)} >
                                             <MenuOutlinedIcon />
                                         </IconButton>
                                     </Box>
@@ -85,23 +86,17 @@ const SideBar = () => {
                                 </Box>
                             )}
 
-                            <Link to="/admin" className="menu-bars">
-                                <MenuItem icon={<HomeOutlinedIcon />}>Dashboard</MenuItem>
+                            <Link to={"/admin"} className="menu-bars">
+                                <MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
                             </Link>
+                            <Link to={"/admin/form"} className="menu-bars">
+                                <MenuItem icon={<InsertDriveFileIcon />}>Form</MenuItem>
+                            </Link>
+                            {/* <Link to="/admin/listitem" className="menu-bars">
+                                <MenuItem icon={<InsertDriveFileIcon />}>ListItem</MenuItem>
+                            </Link> */}
 
-                            <SubMenu icon={<MapOutlinedIcon />} label="Data" className="menu-bars">
-                                <Link to={"/admin/viewtable"} className="sub-menu-bars">
-                                    <MenuItem icon={<TableViewIcon />}>
-                                        {" "}
-                                        Table
-                                    </MenuItem>
-                                </Link>
-                                <MenuItem icon={<BarChartOutlinedIcon />} className="sub-menu-bars">
-                                    {" "}
-                                    รายการสินค้า
-                                </MenuItem>
-                            </SubMenu>
-
+                            
                             <SubMenu  icon={<PeopleOutlinedIcon />}label="Manage" className="menu-bars">
                                 <Link to={"/admin/manage/users"} className="sub-menu-bars">
                                     <MenuItem icon={<PersonIcon/>}>ข้อมูลลูกค้า</MenuItem>
