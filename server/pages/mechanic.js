@@ -13,8 +13,8 @@ const db = mysql.createConnection({
   database: "adminSystem",
 });
 
-app.get("/admin/manage/cars", (req, res) => {
-  db.query("SELECT * FROM car", (err, result) => {
+app.get("/admin/manage/mechanics", (req, res) => {
+  db.query("SELECT * FROM mechanic", (err, result) => {
     if (err) {
       console.log(err);
     } else {
