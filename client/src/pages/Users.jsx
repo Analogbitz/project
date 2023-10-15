@@ -1,4 +1,5 @@
 import React ,{ useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -15,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { yellow } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
-
+import Swal from 'sweetalert2';
 
 
 function Users() {
@@ -51,16 +52,16 @@ function Users() {
     });
   };
 
-  const deleteUserslist = (cus_id) => {
-    Axios.delete(
+  const deleteUserslist = async (cus_id) => {
+    const response = await Axios.delete(
       `http://localhost:3001/admin/manage/users/delete/${cus_id}`
-    ).then((response) => {
-      setUserlist(
-        userList.filter((val) => {
-          return val.cus_id != cus_id;
-        })
-      );
-    });
+    );
+  
+    setUserlist(
+      userList.filter((val) => {
+        return val.cus_id != cus_id;
+      })
+    );
   };
 
   const getEmployees = () => {
@@ -76,7 +77,10 @@ function Users() {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
+          margin:'3%',
+          flexDirection: 'row' ,
+          display: 'flex',
+          justifyContent: 'center'
         }}
         noValidate
         autoComplete="off"
@@ -87,6 +91,7 @@ function Users() {
             id="outlined-required"
             label="ชื่อลูกค้า"
             placeholder="ชื่อลูกค้า"
+            style={{width: "200px", margin: "10px"}}
             onChange={(event) => {
               setName(event.target.value);
             }}
@@ -97,6 +102,7 @@ function Users() {
             id="outlined-required"
             label="เบอร์โทร"
             placeholder="เบอร์โทร"
+            style={{width: "200px", margin: "10px"}}
             onChange={(event) => {
               setPhone(event.target.value);
             }}
@@ -107,6 +113,7 @@ function Users() {
             id="outlined-required"
             label="Line-Id"
             placeholder="Line-Id"
+            style={{width: "200px", margin: "10px"}}
             onChange={(event) => {
               setLineid(event.target.value);
             }}
@@ -116,25 +123,46 @@ function Users() {
             id="outlined-required"
             label="ที่อยู่"
             placeholder="ที่อยู่"
+            style={{width: "200px", margin: "10px"}}
             onChange={(event) => {
               setAddress(event.target.value);
             }}
           />
-        </div>
-        <div>
+
           <Button
+            style={{width: "150px",height:"55px",margin: "10px"}}
             variant="contained"
             startIcon={<AddRoundedIcon />}
-            onClick={addUsers}
+            onClick={() => {
+              Swal.fire({
+                title: 'แจ้งเตือน',
+                text: "ต้องการเพิ่มข้อมูลนี้หรือไม่",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่ ต้องการเพิ่มข้อมูล',
+                cancelButtonText: 'ยกเลิก'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'Success',
+                    'เพิ่มข้อมูลสำเร็จ',
+                    'success'
+                  )
+                  addUsers() 
+                  window.location.reload() ;}
+              })
+              
+            }}
           >
             เพิ่มข้อมูล
           </Button>
-          
         </div>
       </Box>
       <Box>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ Width:"80%" }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>ชื่อลูกค้า:</TableCell>
@@ -161,14 +189,36 @@ function Users() {
                     <TableCell align="center">
                       <IconButton
                         onClick={() => {
-                          deleteUserslist(val.cus_id);
+                          Swal.fire({
+                            title: 'คำเตือน',
+                            text: "ต้องการลบข้อมูลนี้หรือไม่",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ใช่ ต้องการลบ!',
+                            cancelButtonText: 'ยกเลิก'
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              Swal.fire(
+                                'Deleted!',
+                                'ลบข้อมูลสำเร็จ',
+                                'success'
+                              )
+                              deleteUserslist(val.cus_id);}
+                          })
+                          
                         }}
                       >
                         <DeleteIcon color="error" />
                       </IconButton>
                     </TableCell>
                     <TableCell align="center">
-                      <EditIcon sx={{ color: yellow[900] }} />
+                      <Link to={`/admin/manage/users/edit/${val.cus_id}`}>
+                        <IconButton>
+                          <EditIcon sx={{ color: yellow[900] }} />
+                        </IconButton>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

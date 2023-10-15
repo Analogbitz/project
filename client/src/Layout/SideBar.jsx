@@ -7,11 +7,10 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+
 import BuildIcon from "@mui/icons-material/Build";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import TableViewIcon from "@mui/icons-material/TableView";
+
 const SideBar = () => {
   const [isCollapsed, setisCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
