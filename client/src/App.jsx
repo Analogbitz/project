@@ -8,6 +8,7 @@ import MechanicPage from "./pages/Mechanic";
 import CarPage from "./pages/Cars";
 import UserPage from "./pages/Users";
 import FormPage from "./pages/form";
+import EditCar from "./pages/EditCars";
 
 import EditUser from "./pages/EditUser";
 
@@ -23,35 +24,21 @@ function App() {
             <Box m="20px">
               <Routes>
                 <Route path="/admin" key="/admin" element={<MainPage />} />
-                <Route
-                  path="/admin/form"
-                  key="/admin/form"
-                  element={<FormPage />}
-                />
-                <Route
-                  path="/admin/manage"
-                  key="/admin/manage"
-                  element={<ManagePage />}
-                />
-                <Route
-                  path="/admin/manage/users"
-                  key="/admin/manage/users"
-                  element={<UserPage />}
-                />
-                <Route
-                  path="/admin/manage/cars"
-                  key="/admin/manage/cars"
-                  element={<CarPage />}
-                />
+                <Route path="/admin/form" element={<FormPage />} />
+                <Route path="/admin/manage" element={<ManagePage />} />
+                <Route path="/admin/manage/users" element={<UserPage />} />
+                <Route path="/admin/manage/cars" element={<CarPage />} />
                 <Route
                   path="/admin/manage/mechanics"
-                  key="/admin/manage/mechanics"
                   element={<MechanicPage />}
                 />
                 <Route
                   path="/admin/manage/users/edit/:cus_id"
-                  key={`/admin/manage/users/edit/:cus_id`}
                   element={<EditUser />}
+                />
+                <Route
+                  path="/admin/manage/cars/edit/:car_id"
+                  element={<EditCar />}
                 />
               </Routes>
             </Box>

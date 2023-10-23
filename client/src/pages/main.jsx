@@ -1,8 +1,6 @@
-import React ,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import dayjs from "dayjs"
 import Axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,31 +13,28 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { yellow } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
-
+import buddhistEra from "dayjs/plugin/buddhistEra";
 
 
 function main() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [lineid, setLineid] = useState("");
-  const [address, setAddress] = useState("");
-
+  dayjs.extend(buddhistEra);
   const [taskList, setTasklist] = useState([]);
 
   useEffect(() => {
     getDatas();
   });
 
-  
- 
-
   const getDatas = () => {
     Axios.get("http://localhost:3001/admin").then((response) => {
       setTasklist(response.data);
     });
   };
-
- 
+  const DateLongTH = (date) => {
+    dayjs.locale("th");
+    
+    return dayjs(date).format("DD MMMM BBBB HH MM");
+  };
+  
   return (
     <div>
       <h1>รายการซ่อม</h1>
@@ -50,51 +45,7 @@ function main() {
         }}
         noValidate
         autoComplete="off"
-      >
-        <div>
-          <TextField
-            required
-            id="outlined-required"
-            label="ชื่อลูกค้า"
-            placeholder="ชื่อลูกค้า"
-            
-          />
-
-          <TextField
-            required
-            id="outlined-required"
-            label="เบอร์โทร"
-            placeholder="เบอร์โทร"
-            
-          />
-
-          <TextField
-            required
-            id="outlined-required"
-            label="Line-Id"
-            placeholder="Line-Id"
-            
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="ที่อยู่"
-            placeholder="ที่อยู่"
-            
-          />
-        </div>
-        <div>
-          <Button
-            variant="contained"
-            startIcon={<AddRoundedIcon />}
-            
-          >
-            เพิ่มข้อมูล
-          </Button>
-          
-          
-        </div>
-      </Box>
+      ></Box>
       <Box>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -114,21 +65,21 @@ function main() {
               {taskList &&
                 taskList.map((val) => (
                   <TableRow
-                    key={val.task_id}
+                    key={val.order_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                    {val.Date}
+                      {DateLongTH(val.create_order)}
                     </TableCell>
-                    <TableCell align="center">{val.name}</TableCell>
-                    <TableCell align="center">{val.plate}</TableCell>
-                    <TableCell align="center">{val.m_name}</TableCell>
-                    <TableCell align="center">{val.description}</TableCell>
-                    <TableCell align="center">{val.s_name}</TableCell>
+                    <TableCell align="center">{val.customer_name}</TableCell>
+                    <TableCell align="center">{val.plate_id}</TableCell>
+                    <TableCell align="center">{val.mech_name}</TableCell>
                     <TableCell align="center">
-                      <IconButton
-                        
-                      >
+                      {val.order_description}
+                    </TableCell>
+                    <TableCell align="center">{val.repair_status}</TableCell>
+                    <TableCell align="center">
+                      <IconButton>
                         <DeleteIcon color="error" />
                       </IconButton>
                     </TableCell>
@@ -146,3 +97,5 @@ function main() {
 }
 
 export default main;
+
+

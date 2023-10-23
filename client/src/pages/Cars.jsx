@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { yellow } from '@mui/material/colors';
 import IconButton from "@mui/material/IconButton";
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 function Cars() {
 
@@ -207,7 +208,11 @@ function Cars() {
                       </IconButton>
                     </TableCell>
                     <TableCell align='center'>
-                      <EditIcon sx={{ color: yellow[900] }} />
+                    <Link to={`/admin/manage/cars/edit/${val.car_id}`}>
+                        <IconButton>
+                          <EditIcon sx={{ color: yellow[900] }} />
+                        </IconButton>
+                      </Link>
                     </TableCell>
 
                   </TableRow>
