@@ -7,9 +7,10 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import BuildIcon from "@mui/icons-material/Build";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const SideBar = () => {
   const [isCollapsed, setisCollapsed] = useState(false);
@@ -78,10 +79,16 @@ const SideBar = () => {
               )}
 
               <Link to={"/"} className="menu-bars">
-                <MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
+                <MenuItem icon={<HomeOutlinedIcon />}>หน้าแรก</MenuItem>
               </Link>
               <Link to={"/form"} className="menu-bars">
-                <MenuItem icon={<InsertDriveFileIcon />}>Form</MenuItem>
+                <MenuItem icon={<InsertDriveFileIcon />}>แบบฟอร์ม</MenuItem>
+              </Link>
+              <Link to={"/admin/dashboard"} className="menu-bars">
+                <MenuItem icon={<DashboardIcon />}>แดชบอร์ด</MenuItem>
+              </Link>
+              <Link to={"/admin/nontiline"} className="menu-bars">
+                <MenuItem icon={<NotificationsIcon />}>แจ้วเตือนไลน์</MenuItem>
               </Link>
               {/* <Link to="/admin/listitem" className="menu-bars">
                                 <MenuItem icon={<InsertDriveFileIcon />}>ListItem</MenuItem>

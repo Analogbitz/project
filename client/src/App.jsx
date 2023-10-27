@@ -3,16 +3,19 @@ import HeaderBar from "./Layout/Headerbar";
 import { Routes, Route } from "react-router-dom";
 import { CssBaseline, Box } from "@mui/material";
 import MainPage from "./pages/main";
-import ManagePage from "./pages/manage";
+import ManagePage from "./pages/Notiline";
 import MechanicPage from "./pages/Mechanic";
 import CarPage from "./pages/Cars";
 import UserPage from "./pages/Users";
 import FormPage from "./pages/form";
-import EditCar from "./pages/EditCars";
-import Addcustomer from "./pages/AddCustomer";
-import EditUser from "./pages/EditUser";
-import AddMech from "./pages/AddMech";
-import AddCar from "./pages/AddCar";
+import EditCar from "./pages/Edit_pages/EditCars";
+import Addcustomer from "./pages/Add_pages/AddCustomer";
+import EditUser from "./pages/Edit_pages/EditUser";
+import AddMech from "./pages/Add_pages/AddMech";
+import AddCar from "./pages/Add_pages/Addcar";
+import Dashboard from "./pages/Dashboard";
+import Notiline from "./pages/Notiline";
+
 
 function App() {
   return (
@@ -29,6 +32,8 @@ function App() {
                 <Route path="/form" element={<FormPage />} />
                 <Route path="/admin/manage" element={<ManagePage />} />
                 <Route path="/admin/manage/users" element={<UserPage />} />
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/nontiline" element={<Notiline />} />
                 <Route
                   path="/admin/manage/user/add"
                   element={<Addcustomer />}

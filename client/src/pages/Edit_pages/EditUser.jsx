@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -97,6 +97,34 @@ function EditUser() {
           >
             ยืนยัน
           </Button>
+          <Button
+                variant="contained"
+                color="error"
+                size="medium"
+                style={{ width: "150px", height: "50px", margin: "30px" }}
+                onClick={() => {
+                  Swal.fire({
+                    title: "คำเตือน",
+                    text: "ต้องการยกเลิกหรือไม่",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ใช่ ต้องการ!",
+                    cancelButtonText: "ยกเลิก",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        "ยกเลิกสำเร็จ",
+                      
+                      );
+                      nav(-1);
+                    }
+                  });
+                }}
+              >
+                ยกเลิก
+              </Button>
         </Box>
       </div>
     </div>
