@@ -5,27 +5,24 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import axios from 'axios';
+import axios from "axios";
 
 function form() {
+  const [name, setName] = useState("");
+  const [plate, setPlate] = useState("");
+  const [mechanic, setMech] = useState("");
+  const [TStatus, setTstatus] = useState("");
+  const [description, setDescription] = useState("");
 
-    const [name,setName]=useState("");
-    const [plate,setPlate]=useState("");
-    const [mechanic,setMech]=useState("");
-    const [TStatus,setTstatus]=useState("");
-    const [description,setDescription]=useState("");
-
-    const addDatas =()=>{
-      axios.post("http://localhost:3001/admin/form", {
+  const addDatas = () => {
+    axios.post("http://localhost:3001/form", {
       customer_name: name,
       plate_id: plate,
       mech_name: mechanic,
       repair_status: TStatus,
-      order_description:description,
-    })
-    }
-
-  
+      order_description: description,
+    });
+  };
 
   return (
     <>
@@ -48,7 +45,9 @@ function form() {
                 id="outlined-required"
                 label="ชื่อลูกค้า"
                 placeholder="ชื่อลูกค้า"
-                onChange={(e)=>{setName(e.target.value)}}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
               />
             </Box>
           </div>
@@ -71,7 +70,9 @@ function form() {
                   id="outlined-required"
                   label="ป้ายทะเบียน"
                   placeholder="ป้ายทะเบียน"
-                  onChange={(e)=>{setPlate(e.target.value)}}
+                  onChange={(e) => {
+                    setPlate(e.target.value);
+                  }}
                 />
               </Box>
             </div>
@@ -94,8 +95,9 @@ function form() {
                       label="ช่างซ่อม"
                       placeholder="ช่างซ่อม"
                       style={{ width: "50%", margin: "10px" }}
-                      onChange={(e)=>{setMech(e.target.value)}}
-                      
+                      onChange={(e) => {
+                        setMech(e.target.value);
+                      }}
                     >
                       <MenuItem value="">
                         <em>None</em>
@@ -116,7 +118,9 @@ function form() {
                       label="สถานะ"
                       placeholder="สถานะ"
                       style={{ width: "50%", margin: "10px" }}
-                      onChange={(e)=>{setTstatus(e.target.value)}}
+                      onChange={(e) => {
+                        setTstatus(e.target.value);
+                      }}
                     >
                       <MenuItem value="">
                         <em>None</em>
@@ -135,7 +139,9 @@ function form() {
                     label="รายละเอียด"
                     multiline
                     rows={4}
-                    onChange={(e)=>{setDescription(e.target.value)}}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
                   />
                 </Box>
               </div>

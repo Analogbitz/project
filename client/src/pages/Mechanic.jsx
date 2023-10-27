@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useState, useEffect } from "react";
@@ -18,29 +18,11 @@ import IconButton from "@mui/material/IconButton";
 import Swal from "sweetalert2";
 
 function Mechanic() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-
   const [MechList, setMechlist] = useState([]);
 
   useEffect(() => {
     getDatas();
   });
-
-  const addMech = () => {
-    Axios.post("http://localhost:3001/admin/manage/mechanics/create", {
-      name: name,
-      phone: phone,
-    }).then(() => {
-      setMechlist([
-        ...MechList,
-        {
-          name: name,
-          phone: phone,
-        },
-      ]);
-    });
-  };
 
   const deleteMechlist = (m_id) => {
     Axios.delete(
@@ -76,36 +58,15 @@ function Mechanic() {
         autoComplete="off"
       >
         <div>
-          <TextField
-            style={{ width: "200px", margin: "10px" }}
-            required
-            id="outlined-required"
-            label="ชื่อ"
-            placeholder="ชื่อ"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-
-          <TextField
-            style={{ width: "200px", margin: "10px" }}
-            required
-            id="outlined-required"
-            label="เบอร์โทร"
-            placeholder="เบอร์โทร"
-            onChange={(event) => {
-              setPhone(event.target.value);
-            }}
-          />
-
-          <Button
-            style={{ width: "150px", height: "50px", margin: "10px" }}
-            variant="contained"
-            startIcon={<AddRoundedIcon />}
-            onClick={addMech}
-          >
-            เพิ่มข้อมูล
-          </Button>
+          <Link to={"/admin/manage/mechanics/add"}>
+            <Button
+              style={{ width: "150px", height: "50px", margin: "10px" }}
+              variant="contained"
+              startIcon={<AddRoundedIcon />}
+            >
+              เพิ่มข้อมูล
+            </Button>
+          </Link>
         </div>
       </Box>
 
@@ -161,7 +122,6 @@ function Mechanic() {
                       </IconButton>
                     </TableCell>
                     <TableCell align="center">
-                      
                       <EditIcon sx={{ color: yellow[900] }} />
                     </TableCell>
                   </TableRow>

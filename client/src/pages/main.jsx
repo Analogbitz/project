@@ -25,7 +25,7 @@ function main() {
   });
 
   const getDatas = () => {
-    Axios.get("http://localhost:3001/admin").then((response) => {
+    Axios.get("http://localhost:3001/").then((response) => {
       setTasklist(response.data);
     });
   };

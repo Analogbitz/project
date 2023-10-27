@@ -77,10 +77,10 @@ const SideBar = () => {
                 </Box>
               )}
 
-              <Link to={"/admin"} className="menu-bars">
+              <Link to={"/"} className="menu-bars">
                 <MenuItem icon={<HomeOutlinedIcon />}>Home</MenuItem>
               </Link>
-              <Link to={"/admin/form"} className="menu-bars">
+              <Link to={"/form"} className="menu-bars">
                 <MenuItem icon={<InsertDriveFileIcon />}>Form</MenuItem>
               </Link>
               {/* <Link to="/admin/listitem" className="menu-bars">

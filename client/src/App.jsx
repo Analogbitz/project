@@ -9,8 +9,10 @@ import CarPage from "./pages/Cars";
 import UserPage from "./pages/Users";
 import FormPage from "./pages/form";
 import EditCar from "./pages/EditCars";
-
+import Addcustomer from "./pages/AddCustomer";
 import EditUser from "./pages/EditUser";
+import AddMech from "./pages/AddMech";
+import AddCar from "./pages/AddCar";
 
 function App() {
   return (
@@ -23,10 +25,22 @@ function App() {
           <div className="content-body">
             <Box m="20px">
               <Routes>
-                <Route path="/admin" key="/admin" element={<MainPage />} />
-                <Route path="/admin/form" element={<FormPage />} />
+                <Route path="/" key="/" element={<MainPage />} />
+                <Route path="/form" element={<FormPage />} />
                 <Route path="/admin/manage" element={<ManagePage />} />
                 <Route path="/admin/manage/users" element={<UserPage />} />
+                <Route
+                  path="/admin/manage/user/add"
+                  element={<Addcustomer />}
+                />
+                <Route
+                  path="/admin/manage/car/add"
+                  element={<AddCar />}
+                />
+                <Route
+                  path="/admin/manage/mechanics/add"
+                  element={<AddMech />}
+                />
                 <Route path="/admin/manage/cars" element={<CarPage />} />
                 <Route
                   path="/admin/manage/mechanics"

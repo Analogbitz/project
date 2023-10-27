@@ -17,7 +17,7 @@ const db = mysql.createConnection({
 });
 
 
-app.get("/admin", (req, res) => {
+app.get("/", (req, res) => {
   let sql =
     "SELECT * FROM `order_repair`";
   db.query(sql, (err, result) => {
@@ -30,7 +30,7 @@ app.get("/admin", (req, res) => {
 });
 
 //Add Orders
-app.post("/admin/form", (req, res) => {
+app.post("/form", (req, res) => {
   const name = req.body.customer_name;
   const plate = req.body.plate_id;
   const re_status = req.body.repair_status;
@@ -68,7 +68,7 @@ app.get("/admin/manage/users", (req, res) => {
 });
 
 //Add Users
-app.post("/admin/manage/users/create", (req, res) => {
+app.post("/admin/manage/addcustomer", (req, res) => {
   const name = req.body.name;
   const phone = req.body.phone;
   const lineid = req.body.lineid;
