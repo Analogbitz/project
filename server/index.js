@@ -29,21 +29,21 @@ app.get("/", (req, res) => {
   });
 });
 
-//ลบข้อมูล order
-app.delete("/delete/:order_id", (req, res) => {
-  const order_id = req.params.order_id;
-  db.query(
-    "DELETE FROM order_repair WHERE order_id =?",
-    order_id,
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
+// //ลบข้อมูล order
+// app.delete("/delete/:order_id", (req, res) => {
+//   const order_id = req.params.order_id;
+//   db.query(
+//     "DELETE FROM order_repair WHERE order_id =?",
+//     order_id,
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         res.send(result);ห
+//       }
+//     }
+//   );
+// });
 
 
 //Add order
