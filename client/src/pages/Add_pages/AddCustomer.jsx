@@ -1,28 +1,27 @@
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function AddCar() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [lineid, setLineid] = useState("");
+  const [line_id, setLineid] = useState("");
   const [address, setAddress] = useState("");
 
   const nav = useNavigate();
+  
 
   const addData = () => {
     axios
-      .post("http://localhost:3001/admin/manage/addcustomer", {
+      .post("http://localhost:3001/admin/manage/user/add", {
         name: name,
         phone: phone,
-        lineid: lineid,
+        line_id: line_id,
         address: address,
       })
-      .then(() => {
-        nav(-1);
-      });
+      .then();
   };
 
   return (
@@ -84,36 +83,32 @@ function AddCar() {
             >
               ยืนยัน
             </Button>
-           
-              <Button
-                variant="contained"
-                color="error"
-                size="medium"
-                style={{ width: "150px", height: "50px", margin: "30px" }}
-                onClick={() => {
-                  Swal.fire({
-                    title: "คำเตือน",
-                    text: "ต้องการยกเลิกการเพิ่มข้อมูลนี้หรือไม่",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "ใช่ ต้องการ!",
-                    cancelButtonText: "ยกเลิก",
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      Swal.fire(
-                        "ยกเลิกสำเร็จ",
-                      
-                      );
-                      nav(-1);
-                    }
-                  });
-                }}
-              >
-                ยกเลิก
-              </Button>
-            
+
+            <Button
+              variant="contained"
+              color="error"
+              size="medium"
+              style={{ width: "150px", height: "50px", margin: "30px" }}
+              onClick={() => {
+                Swal.fire({
+                  title: "คำเตือน",
+                  text: "ต้องการยกเลิกการเพิ่มข้อมูลนี้หรือไม่",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "ใช่ ต้องการ!",
+                  cancelButtonText: "ยกเลิก",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire("ยกเลิกสำเร็จ");
+                    nav(-1);
+                  }
+                });
+              }}
+            >
+              ยกเลิก
+            </Button>
           </div>
         </div>
       </Box>

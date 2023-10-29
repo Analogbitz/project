@@ -88,14 +88,14 @@ function Users() {
                 {userList &&
                   userList.map((val) => (
                     <TableRow
-                      key={val.name}
+                      key={val.cus_id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
                         {val.name}
                       </TableCell>
                       <TableCell align="center">{val.phone}</TableCell>
-                      <TableCell align="center">{val.lineid}</TableCell>
+                      <TableCell align="center">{val.line_id}</TableCell>
                       <TableCell align="center">{val.address}</TableCell>
                       <TableCell align="center">
                         <IconButton

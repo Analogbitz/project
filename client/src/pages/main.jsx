@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import buddhistEra from "dayjs/plugin/buddhistEra";
 
 
+
 function main() {
   dayjs.extend(buddhistEra);
   const [taskList, setTasklist] = useState([]);
@@ -29,12 +30,19 @@ function main() {
       setTasklist(response.data);
     });
   };
+
+  
+
+ 
+
   const DateLongTH = (date) => {
     dayjs.locale("th");
-    
+
     return dayjs(date).format("DD MMMM BBBB HH MM");
   };
-  
+
+
+
   return (
     <div>
       <h1>รายการซ่อม</h1>
@@ -71,13 +79,13 @@ function main() {
                     <TableCell component="th" scope="row">
                       {DateLongTH(val.create_order)}
                     </TableCell>
-                    <TableCell align="center">{val.customer_name}</TableCell>
-                    <TableCell align="center">{val.plate_id}</TableCell>
-                    <TableCell align="center">{val.mech_name}</TableCell>
+                    <TableCell align="center">{val.name}</TableCell>
+                    <TableCell align="center">{val.plate_license}</TableCell>
+                    <TableCell align="center">{val.name}</TableCell>
                     <TableCell align="center">
-                      {val.order_description}
+                      {val.description}
                     </TableCell>
-                    <TableCell align="center">{val.repair_status}</TableCell>
+                    <TableCell align="center">{val.status_name}</TableCell>
                     <TableCell align="center">
                       <IconButton>
                         <DeleteIcon color="error" />

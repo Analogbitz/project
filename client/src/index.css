@@ -17,7 +17,11 @@ body,
   overflow: scroll;
 }
 
-
+.bg-con{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .app {
   display: flex;
   position: relative;

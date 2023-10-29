@@ -7,21 +7,23 @@ import { useNavigate, useParams } from "react-router-dom";
 function EditUser() {
   const { cus_id } = useParams();
   const [Name, setName] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [Address, setAddress] = useState("");
-  const [Lineid, setLineid] = useState("");
+  const [phone, setPhone] = useState("");
+  const [line_id, setLineid] = useState("");
+  const [address, setAddress] = useState("");
 
   const nav = useNavigate();
 
+  
+
   useEffect(() => {
     axios
-      .get("http://localhost:3001/admin/manage/users/update/" + cus_id)
+      .get("http://localhost:3001/admin/manage/users/update/" +cus_id)
       .then((res) => {
         console.log(res);
         setName(res.data[0].name);
         setPhone(res.data[0].phone);
+        setLineid(res.data[0].line_id);
         setAddress(res.data[0].address);
-        setLineid(res.data[0].lineid);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -31,9 +33,9 @@ function EditUser() {
     axios
       .put("http://localhost:3001/admin/manage/users/edit/" + cus_id, {
         Name,
-        Phone,
-        Address,
-        Lineid,
+        phone,
+        line_id,
+        address,
       })
       .then((response) => {
         nav("/admin/manage/users");
@@ -63,20 +65,9 @@ function EditUser() {
             margin="dense"
             id="outlined-required"
             placeholder="เบอร์โทร"
-            value={Phone}
+            value={phone}
             label="เบอร์โทร"
             onChange={(e) => setPhone(e.target.value)}
-          />
-
-          <TextField
-            style={{ width: "400px", margin: "10px" }}
-            id="outlined-multiline-static"
-            placeholder="ที่อยู่"
-            multiline
-            rows={4}
-            label="ที่อยู่"
-            value={Address}
-            onChange={(e) => setAddress(e.target.value)}
           />
 
           <TextField
@@ -84,8 +75,18 @@ function EditUser() {
             id="outlined-required"
             label="Line ID"
             placeholder="Line Id"
-            value={Lineid}
+            value={line_id}
             onChange={(e) => setLineid(e.target.value)}
+          />
+          <TextField
+            style={{ width: "400px", margin: "10px" }}
+            id="outlined-multiline-static"
+            placeholder="ที่อยู่"
+            multiline
+            rows={4}
+            label="ที่อยู่"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
 
           <Button
@@ -98,33 +99,30 @@ function EditUser() {
             ยืนยัน
           </Button>
           <Button
-                variant="contained"
-                color="error"
-                size="medium"
-                style={{ width: "150px", height: "50px", margin: "30px" }}
-                onClick={() => {
-                  Swal.fire({
-                    title: "คำเตือน",
-                    text: "ต้องการยกเลิกหรือไม่",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "ใช่ ต้องการ!",
-                    cancelButtonText: "ยกเลิก",
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      Swal.fire(
-                        "ยกเลิกสำเร็จ",
-                      
-                      );
-                      nav(-1);
-                    }
-                  });
-                }}
-              >
-                ยกเลิก
-              </Button>
+            variant="contained"
+            color="error"
+            size="medium"
+            style={{ width: "150px", height: "50px", margin: "30px" }}
+            onClick={() => {
+              Swal.fire({
+                title: "คำเตือน",
+                text: "ต้องการยกเลิกหรือไม่",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ใช่ ต้องการ!",
+                cancelButtonText: "ยกเลิก",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire("ยกเลิกสำเร็จ");
+                  nav(-1);
+                }
+              });
+            }}
+          >
+            ยกเลิก
+          </Button>
         </Box>
       </div>
     </div>

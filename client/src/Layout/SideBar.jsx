@@ -88,7 +88,7 @@ const SideBar = () => {
                 <MenuItem icon={<DashboardIcon />}>แดชบอร์ด</MenuItem>
               </Link>
               <Link to={"/admin/nontiline"} className="menu-bars">
-                <MenuItem icon={<NotificationsIcon />}>แจ้วเตือนไลน์</MenuItem>
+                <MenuItem icon={<NotificationsIcon />}>แจ้งเตือนไลน์</MenuItem>
               </Link>
               {/* <Link to="/admin/listitem" className="menu-bars">
                                 <MenuItem icon={<InsertDriveFileIcon />}>ListItem</MenuItem>
@@ -96,7 +96,7 @@ const SideBar = () => {
 
               <SubMenu
                 icon={<PeopleOutlinedIcon />}
-                label="Manage"
+                label="การจัดการ"
                 className="menu-bars"
               >
                 <Link to={"/admin/manage/users"} className="sub-menu-bars">
