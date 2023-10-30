@@ -86,14 +86,14 @@ function Mechanic() {
               {MechList &&
                 MechList.map((val) => (
                   <TableRow
-                    key={val.m_id}
+                    key={val.mech_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {val.m_id}
+                      {val.mech_id}
                     </TableCell>
-                    <TableCell align="center">{val.m_name}</TableCell>
-                    <TableCell align="center">{val.m_phone}</TableCell>
+                    <TableCell align="center">{val.mech_name}</TableCell>
+                    <TableCell align="center">{val.phone}</TableCell>
 
                     <TableCell align="center">
                       <IconButton

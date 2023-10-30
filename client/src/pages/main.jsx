@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 import Axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,11 +14,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import { yellow } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import buddhistEra from "dayjs/plugin/buddhistEra";
+import Swal from "sweetalert2";
 
 
+dayjs.extend(buddhistEra);
+
+const DateLongTH = (date) => {
+  dayjs.locale('th'); // ตั้งค่าภาษาเป็นภาษาไทย
+
+  return dayjs(date).format('DD/MM/BBBB HH:mm');
+};
 
 function main() {
-  dayjs.extend(buddhistEra);
   const [taskList, setTasklist] = useState([]);
 
   useEffect(() => {
@@ -31,16 +38,20 @@ function main() {
     });
   };
 
-  
-
- 
-
-  const DateLongTH = (date) => {
-    dayjs.locale("th");
-
-    return dayjs(date).format("DD MMMM BBBB HH MM");
+  const deleteOrderlist = (order_id) => {
+    Axios.delete(`http://localhost:3001/delete/${order_id}`).then(
+      (response) => {
+        setTasklist(
+          taskList.filter((val) => {
+            return val.order_id != order_id;
+          })
+        );
+      }
+    );
   };
 
+  
+  
 
 
   return (
@@ -82,17 +93,37 @@ function main() {
                     <TableCell align="center">{val.name}</TableCell>
                     <TableCell align="center">{val.plate_license}</TableCell>
                     <TableCell align="center">{val.name}</TableCell>
-                    <TableCell align="center">
-                      {val.description}
-                    </TableCell>
+                    <TableCell align="center">{val.description}</TableCell>
                     <TableCell align="center">{val.status_name}</TableCell>
-                    <TableCell align="center">
-                      <IconButton>
-                        <DeleteIcon color="error" />
-                      </IconButton>
-                    </TableCell>
+
                     <TableCell align="center">
                       <EditIcon sx={{ color: yellow[900] }} />
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                              );
+                              deleteOrderlist(val.order_id);
+                            }
+                          });
+                        }}
+                      >
+                        <DeleteIcon color="error" />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -105,5 +136,3 @@ function main() {
 }
 
 export default main;
-
-

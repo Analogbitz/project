@@ -31,8 +31,6 @@ function Cars() {
     getDatas();
   });
 
-  
-
   const deleteCarlist = (car_id) => {
     Axios.delete(
       `http://localhost:3001/admin/manage/cars/delete/${car_id}`
@@ -66,8 +64,7 @@ function Cars() {
         autoComplete="off"
       >
         <div>
-          
-          <Link to={"/admin/manage/car/add"} >
+          <Link to={"/admin/manage/car/add"}>
             <Button
               style={{ width: "150px", height: "50px", margin: "10px" }}
               variant="contained"
@@ -88,7 +85,6 @@ function Cars() {
                 <TableCell align="right">ยี่ห้อ:</TableCell>
                 <TableCell align="right">รุ่น:</TableCell>
                 <TableCell align="right">หมายเลขตัวถัง:</TableCell>
-                <TableCell align="right">หมายเลขเครื่อง</TableCell>
                 <TableCell align="center">ลบรายการ</TableCell>
                 <TableCell align="center">แก้ไขรายการ</TableCell>
               </TableRow>
@@ -97,16 +93,15 @@ function Cars() {
               {carList &&
                 carList.map((val) => (
                   <TableRow
-                    key={val.plate}
+                    key={val.car_id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {val.plate}
+                      {val.plate_license}
                     </TableCell>
-                    <TableCell align="right">{val.brand}</TableCell>
+                    <TableCell align="right">{val.make}</TableCell>
                     <TableCell align="right">{val.model}</TableCell>
-                    <TableCell align="right">{val.vin}</TableCell>
-                    <TableCell align="right">{val.num_serial}</TableCell>
+                    <TableCell align="right">{val.vin_number}</TableCell>
                     <TableCell align="center">
                       <IconButton
                         onClick={() => {

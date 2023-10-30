@@ -29,21 +29,21 @@ app.get("/", (req, res) => {
   });
 });
 
-// //ลบข้อมูล order
-// app.delete("/delete/:order_id", (req, res) => {
-//   const order_id = req.params.order_id;
-//   db.query(
-//     "DELETE FROM order_repair WHERE order_id =?",
-//     order_id,
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.send(result);ห
-//       }
-//     }
-//   );
-// });
+//ลบข้อมูล order
+app.delete("/delete/:order_id", (req, res) => {
+  const order_id = req.params.order_id;
+  db.query(
+    "DELETE FROM order_repair WHERE order_id =?",
+    order_id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 
 //Add order
@@ -208,15 +208,15 @@ app.put("/admin/manage/users/edit/:cus_id", async (req, res) => {
 ////////////////////////////////////////Cars///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// app.get("/admin/manage/cars", (req, res) => {
-//   db.query("SELECT * FROM cars", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
+app.get("/admin/manage/cars", (req, res) => {
+  db.query("SELECT * FROM cars", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
 // //Add Car
 // app.post("/admin/manage/cars/create", (req, res) => {
@@ -238,6 +238,7 @@ app.put("/admin/manage/users/edit/:cus_id", async (req, res) => {
 //     }
 //   );
 // });
+
 // ///Delete
 // app.delete("/admin/manage/cars/delete/:car_id", (req, res) => {
 //   const car_id = req.params.car_id;
@@ -286,15 +287,15 @@ app.put("/admin/manage/users/edit/:cus_id", async (req, res) => {
 ////////////////////////////////////////Mechanics//////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// app.get("/admin/manage/mechanics", (req, res) => {
-//   db.query("SELECT * FROM mechanic", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
+app.get("/admin/manage/mechanics", (req, res) => {
+  db.query("SELECT * FROM mechanic", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
 // //Add Mech
 // app.post("/admin/manage/mechanics/create", (req, res) => {
