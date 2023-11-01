@@ -15,14 +15,13 @@ import { yellow } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import buddhistEra from "dayjs/plugin/buddhistEra";
 import Swal from "sweetalert2";
-
+import { Link } from "react-router-dom";
 
 dayjs.extend(buddhistEra);
 
 const DateLongTH = (date) => {
-  dayjs.locale('th'); // ตั้งค่าภาษาเป็นภาษาไทย
-
-  return dayjs(date).format('DD/MM/BBBB HH:mm');
+  dayjs.locale("th"); // ตั้งค่าภาษาเป็นภาษาไทย
+  return dayjs(date).format("DD/MMMM/BBBB HH:mm");
 };
 
 function main() {
@@ -50,21 +49,10 @@ function main() {
     );
   };
 
-  
-  
-
-
   return (
     <div>
       <h1>รายการซ่อม</h1>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      ></Box>
+      
       <Box>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -76,8 +64,8 @@ function main() {
                 <TableCell align="center">ช่างซ่อม:</TableCell>
                 <TableCell align="center">รายละเอียด:</TableCell>
                 <TableCell align="center">สถานะ:</TableCell>
-                <TableCell align="center">ลบรายการ</TableCell>
                 <TableCell align="center">แก้ไขรายการ</TableCell>
+                <TableCell align="center">ลบรายการ</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -92,29 +80,33 @@ function main() {
                     </TableCell>
                     <TableCell align="center">{val.name}</TableCell>
                     <TableCell align="center">{val.plate_license}</TableCell>
-                    <TableCell align="center">{val.name}</TableCell>
+                    <TableCell align="center">{val.mech_name}</TableCell>
                     <TableCell align="center">{val.description}</TableCell>
                     <TableCell align="center">{val.status_name}</TableCell>
-
                     <TableCell align="center">
-                      <EditIcon sx={{ color: yellow[900] }} />
+                      <Link to={`/admin/edit/${val.order_id}`}>
+                        <IconButton>
+                          <EditIcon sx={{ color: yellow[900] }} />
+                        </IconButton>
+                      </Link>
                     </TableCell>
                     <TableCell align="center">
                       <IconButton
                         onClick={() => {
                           Swal.fire({
-                            title: "Are you sure?",
-                            text: "You won't be able to revert this!",
+                            title: "ตำเตือน",
+                            text: "ต้องการลบข้อมูลนี้ใช่หรือไม่",
                             icon: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#3085d6",
                             cancelButtonColor: "#d33",
-                            confirmButtonText: "Yes, delete it!",
+                            confirmButtonText: "ใช่ ต้องการลบ!",
+                            cancelButtonText: "ยกเลิก",
                           }).then((result) => {
                             if (result.isConfirmed) {
                               Swal.fire(
-                                "Deleted!",
-                                "Your file has been deleted.",
+                                
+                                "ลบข้อมูลสำเร็จ",
                                 "success"
                               );
                               deleteOrderlist(val.order_id);

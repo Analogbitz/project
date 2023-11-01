@@ -118,10 +118,52 @@ app.post("/form", (req, res) => {
   });
 });
 
+app.get("/admin/update/:order_id",(req,res)=>{
+  const sql ="SELECT order_repair.order_id, order_repair.estimate_time, customers.phone, cars.plate_license, mechanic.mech_name, order_repair.description, status_order.status_name FROM order_repair INNER JOIN customers ON order_repair.customer_id = customers.cus_id INNER JOIN cars ON order_repair.car_id = cars.car_id INNER JOIN mechanic ON order_repair.mechanic_id = mechanic.mech_id INNER JOIN status_order ON order_repair.status_id = status_order.status_id WHERE order_id = ?";
+  const order_id = req.params.order_id;
+   db.query(sql, [order_id],(err,result)=>{
+     if(err) return res.json({Error:err});
+     return res.json(result);
+   })
+ })
 
+ app.put("/admin/edit/:order_id", (req, res) => {
+  const { order_id } = req.params;
+  const mech_name = req.body.mech_name;
+  const repair_status = req.body.repair_status;
+  const order_description = req.body.order_description;
+  const estimate_time = req.body.estimate_time;
 
+  const mechSQL = "SELECT mech_id FROM mechanic WHERE mech_name = ?";
+  const statusSQL = "SELECT status_id FROM status_order WHERE status_name = ?";
 
+  db.query(mechSQL,[mech_name],(mechErr,mechResult)=> {
+    if(mechErr){
+      console.log(mechErr)
+    } else {
+      const mechanic_id = mechResult[0].mech_id;
 
+      db.query(statusSQL,[repair_status],(statusErr,statusResult)=> {
+        if(statusErr){
+          console.log(statusErr);
+        } else{
+          const status_id = statusResult[0].status_id;
+
+          db.query(`UPDATE order_repair SET mechanic_id = ?, status_id = ?,  description = ? ,estimate_time = ? WHERE order_id = ?`,
+          [mechanic_id,status_id,order_description,estimate_time,order_id],
+          (err,result) => {
+            if(err) {
+              console.log(err);
+            } else {
+              res.send(result);
+            }
+          }
+          )
+        }
+      })
+    }
+  })
+});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -326,7 +368,46 @@ app.get("/admin/manage/mechanics", (req, res) => {
 //   });
 // });
 
-/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////Dashboard/////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+app.get("/admin/dashboard/on_progress", (req, res) => {
+  db.query("SELECT COUNT(*) FROM order_repair WHERE status_id = 2"
+  , (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/admin/dashboard/on_finish", (req, res) => {
+  db.query("SELECT COUNT(*) FROM order_repair WHERE status_id = 3"
+  , (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/admin/dashboard/all_order_repair", (req, res) => {
+  db.query("SELECT COUNT(*) FROM order_repair"
+  , (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
+
+
 
 app.listen(3001, () => {
   console.log("Hey , yoour server is running on port 3001!");

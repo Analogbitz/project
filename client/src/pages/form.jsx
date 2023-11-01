@@ -110,8 +110,8 @@ function form() {
                 <MenuItem value="กำลังดำเนินการซ่อม">
                   <em>กำลังดำเนินการซ่อม</em>
                 </MenuItem>
-                <MenuItem value="ดำเนินการเสร็จสิ้น">
-                  <em>ดำเนินการเสร็จสิ้น</em>
+                <MenuItem value="ดำเนินซ่อมเสร็จสิ้น">
+                  <em>ดำเนินการซ่อมเสร็จสิ้น</em>
                 </MenuItem>
               </Select>
             </FormControl>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import dayjs from "dayjs";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -77,13 +78,15 @@ function Notiline() {
                     </TableCell>
                     <TableCell align="center">{val.name}</TableCell>
                     <TableCell align="center">{val.plate_license}</TableCell>
-                    <TableCell align="center">{val.name}</TableCell>
+                    <TableCell align="center">{val.mech_name}</TableCell>
                     <TableCell align="center">{val.description}</TableCell>
                     <TableCell align="center">{val.status_name}</TableCell>
                     <TableCell align="center">
-                      <IconButton>
-                        <EditIcon sx={{ color: yellow[900] }} />
-                      </IconButton>
+                    <Link to={`/admin/edit/${val.order_id}`}>
+                        <IconButton>
+                          <EditIcon sx={{ color: yellow[900] }} />
+                        </IconButton>
+                      </Link>
                     </TableCell>
 
                     <TableCell align="center">
