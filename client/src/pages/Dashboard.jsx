@@ -5,10 +5,13 @@ import WorkHistoryOutlinedIcon from "@mui/icons-material/WorkHistoryOutlined";
 import Onprogress from "../Componets/Onprogress";
 import Onfinish from "../Componets/Onfinish";
 import CountOrderRepair from "../Componets/CountOrderRepair";
+import Report_mech from "../Componets/Report_mech/Report_Mech";
+
 
 function Dashboard() {
   return (
     <div>
+
       <h1>Dashboard</h1>
       <div className="dashboard">
         <div className="bg-dt">
@@ -53,18 +56,13 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-dt">
-        <div className="head-dt">งานรอดำเนินการ</div>
-        <div className="con-dt">
-          <div className="work-icon">
-            <WorkHistoryOutlinedIcon color="warning" sx={{ fontSize: 50 }} />
-          </div>
-          <div className="dt-db"></div>
-          <h1 className="dt-num">
-            <Onprogress />
-          </h1>
-        </div>
+      <div className="dashboard">
+      <Report_mech/>
       </div>
+      
+      
+      
+  
     </div>
   );
 }

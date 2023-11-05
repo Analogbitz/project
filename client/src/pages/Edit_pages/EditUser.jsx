@@ -48,8 +48,15 @@ function EditUser() {
   return (
     <div>
       <h2>แก้ไขข้อมูลลูกค้า</h2>
-      <div className="bgform">
-        <Box component="form" onSubmit={UpdateData}>
+      <div className="bg-con">
+        <Box component="form" 
+        sx={{
+          margin: "3%",
+          flexDirection: "column",
+          display: "flex",
+          justifyContent: "center",
+        }}
+        onSubmit={UpdateData}>
           <TextField
             style={{ width: "400px", margin: "10px" }}
             margin="dense"
