@@ -6,11 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function EditCars() {
   const { car_id } = useParams();
-  const [plate, setPlate] = useState("");
-  const [brand, setBrand] = useState("");
+  const [plate_license, setPlate] = useState("");
+  const [make, setMake] = useState("");
   const [model, setModel] = useState("");
-  const [vin, setVin] = useState("");
-  const [num_serial, setNumserial] = useState("");
+  const [vin_number, setVin] = useState("");
 
   const nav = useNavigate();
 
@@ -19,11 +18,11 @@ function EditCars() {
       .get("http://localhost:3001/admin/manage/cars/update/" + car_id)
       .then((res) => {
         console.log(res);
-        setPlate(res.data[0].plate);
-        setBrand(res.data[0].brand);
+        setPlate(res.data[0].plate_license);
+        setMake(res.data[0].make);
         setModel(res.data[0].model);
-        setVin(res.data[0].vin);
-        setNumserial(res.data[0].num_serial);
+        setVin(res.data[0].vin_number);
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,11 +32,10 @@ function EditCars() {
     e.preventDefault();
     axios
       .put("http://localhost:3001/admin/manage/cars/edit/" + car_id, {
-        plate,
-        brand,
+        plate_license,
+        make,
         model,
-        vin,
-        num_serial,
+        vin_number,
       })
       .then((response) => {
         nav("/admin/manage/cars");
@@ -51,16 +49,23 @@ function EditCars() {
 
   return (
     <div>
-      <h2>แก้ไขข้อมูลลูกค้า</h2>
-      <div className="bgform">
-        <Box component="form" onSubmit={UpdateData}>
+      <h2>แก้ไขข้อมูลรถยนต์</h2>
+      <div className="bg-con">
+        <Box component="form" 
+        sx={{
+          margin: "3%",
+          flexDirection: "column",
+          display: "flex",
+          justifyContent: "center",
+        }}
+        onSubmit={UpdateData}>
           <TextField
             style={{ width: "400px", margin: "10px" }}
             margin="dense"
             id="outlined-required"
             placeholder="เลขทะเบียน"
+            value={plate_license}
             label="เลขทะเบียน"
-            value={plate}
             onChange={(e) => setPlate(e.target.value)}
           />
 
@@ -69,9 +74,9 @@ function EditCars() {
             margin="dense"
             id="outlined-required"
             placeholder="ยี่ห้อ"
+            value={make}
             label="ยี่ห้อ"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
+            onChange={(e) => setMake(e.target.value)}
           />
 
           <TextField
@@ -82,23 +87,13 @@ function EditCars() {
             value={model}
             onChange={(e) => setModel(e.target.value)}
           />
-
           <TextField
             style={{ width: "400px", margin: "10px" }}
             id="outlined-required"
             label="หมายเลขตัวถัง"
             placeholder="หมายเลขตัวถัง"
-            value={vin}
+            value={vin_number}
             onChange={(e) => setVin(e.target.value)}
-          />
-
-          <TextField
-            style={{ width: "400px", margin: "10px" }}
-            id="outlined-required"
-            label="หมายเลขเครื่อง"
-            placeholder="หมายเลขเครื่อง"
-            value={num_serial}
-            onChange={(e) => setNumserial(e.target.value)}
           />
 
           <Button
@@ -109,6 +104,31 @@ function EditCars() {
             style={{ width: "150px", height: "50px", margin: "30px" }}
           >
             ยืนยัน
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            size="medium"
+            style={{ width: "150px", height: "50px", margin: "30px" }}
+            onClick={() => {
+              Swal.fire({
+                title: "คำเตือน",
+                text: "ต้องการยกเลิกหรือไม่",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ใช่ ต้องการ!",
+                cancelButtonText: "ยกเลิก",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire("ยกเลิกสำเร็จ");
+                  nav(-1);
+                }
+              });
+            }}
+          >
+            ยกเลิก
           </Button>
         </Box>
       </div>

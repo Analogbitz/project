@@ -19,11 +19,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 function Cars() {
-  const [plate, setPlate] = useState("");
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [c_vin, setCvin] = useState("");
-  const [num_serial, setNumserial] = useState("");
+  
 
   const [carList, setcarlist] = useState([]);
 
@@ -31,16 +27,16 @@ function Cars() {
     getDatas();
   });
 
-  const deleteCarlist = (car_id) => {
-    Axios.delete(
-      `http://localhost:3001/admin/manage/cars/delete/${car_id}`
-    ).then((response) => {
-      setUserlist(
-        userList.filter((val) => {
-          return val.car_id != car_id;
-        })
-      );
-    });
+  const deleteCarlist = async (car_id) => {
+    const response = await Axios.delete(
+      `http://localhost:3001/admin/manage/car/delete/${car_id}`
+    );
+
+    setUserlist(
+      userList.filter((val) => {
+        return val.car_id != car_id;
+      })
+    );
   };
 
   const getDatas = () => {

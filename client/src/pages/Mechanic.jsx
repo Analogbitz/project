@@ -24,13 +24,13 @@ function Mechanic() {
     getDatas();
   });
 
-  const deleteMechlist = (m_id) => {
+  const deleteMechlist = (mech_id) => {
     Axios.delete(
-      `http://localhost:3001/admin/manage/mechanics/delete/${m_id}`
+      `http://localhost:3001/admin/manage/mechanics/delete/${mech_id}`
     ).then((response) => {
       setUserlist(
         userList.filter((val) => {
-          return val.m_id != m_id;
+          return val.mech_id != mech_id;
         })
       );
     });
@@ -113,7 +113,7 @@ function Mechanic() {
                                 "Your file has been deleted.",
                                 "success"
                               );
-                              deleteMechlist(val.m_id);
+                              deleteMechlist(val.mech_id);
                             }
                           });
                         }}
@@ -122,7 +122,11 @@ function Mechanic() {
                       </IconButton>
                     </TableCell>
                     <TableCell align="center">
-                      <EditIcon sx={{ color: yellow[900] }} />
+                    <Link to={`/admin/manage/mechanic/edit/${val.mech_id}`}>
+                        <IconButton>
+                          <EditIcon sx={{ color: yellow[900] }} />
+                        </IconButton>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

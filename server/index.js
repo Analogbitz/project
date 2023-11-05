@@ -272,70 +272,69 @@ app.get("/admin/manage/cars", (req, res) => {
   });
 });
 
-// //Add Car
-// app.post("/admin/manage/cars/create", (req, res) => {
-//   const plate = req.body.plate;
-//   const brand = req.body.brand;
-//   const model = req.body.model;
-//   const c_vin = req.body.c_vin;
-//   const num_serial = req.body.num_serial;
+//Add Car
+app.post("/admin/manage/car/add", (req, res) => {
+  const plate = req.body.plate_license;
+  const brand = req.body.make;
+  const model = req.body.model;
+  const vin_number = req.body.vin_number;
+  
+  db.query(
+    "INSERT INTO cars (plate_license,make,model,vin_number) VALUES(?,?,?,?)",
+    [plate, brand, model, vin_number],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values Inserted");
+      }
+    }
+  );
+});
 
-//   db.query(
-//     "INSERT INTO car (plate,brand,model,vin,num_serial) VALUES(?,?,?,?,?)",
-//     [plate, brand, model, c_vin, num_serial],
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.send("Values Inserted");
-//       }
-//     }
-//   );
-// });
+///Delete
+app.delete("/admin/manage/car/delete/:car_id", (req, res) => {
+  const car_id = req.params.car_id;
+  db.query("DELETE FROM cars WHERE car_id =?", car_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
-// ///Delete
-// app.delete("/admin/manage/cars/delete/:car_id", (req, res) => {
-//   const car_id = req.params.car_id;
-//   db.query("DELETE FROM car WHERE car_id =?", car_id, (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
+///Get update list id
+app.get("/admin/manage/cars/update/:car_id", (req, res) => {
+  const sql = "SELECT * FROM cars WHERE car_id=?";
+  const id = req.params.car_id;
+  db.query(sql, id, (err, result) => {
+    if (err) return res.json({ Error: err });
+    return res.json(result);
+  });
+});
 
-// ///Get update list id
-// app.get("/admin/manage/cars/update/:car_id", (req, res) => {
-//   const sql = "SELECT * FROM car WHERE car_id=?";
-//   const id = req.params.car_id;
-//   db.query(sql, id, (err, result) => {
-//     if (err) return res.json({ Error: err });
-//     return res.json(result);
-//   });
-// });
+//// update
+app.put("/admin/manage/cars/edit/:car_id", async (req, res) => {
+  const { car_id } = req.params;
+  const { plate_license, make, model, vin_number } = req.body;
 
-// ////
-// app.put("/admin/manage/cars/edit/:car_id", async (req, res) => {
-//   const { car_id } = req.params;
-//   const { plate, brand, model, vin, num_serial } = req.body;
+  try {
+    await db.query(
+      `UPDATE cars SET plate_license = ?, make = ?, model = ?, vin_number = ?  WHERE car_id = ?`,
+      [plate_license, make, model, vin_number, car_id]
+    );
 
-//   try {
-//     await db.query(
-//       `UPDATE car SET plate = ?, brand = ?, model = ?, vin = ? ,num_serial = ? WHERE car_id = ?`,
-//       [plate, brand, model, vin, num_serial, car_id]
-//     );
-
-//     res.json({
-//       message: "User updated successfully!",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       message: "Something went wrong!",
-//     });
-//   }
-// });
+    res.json({
+      message: "User updated successfully!",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong!",
+    });
+  }
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Mechanics//////////////////////////////////////////
@@ -351,34 +350,66 @@ app.get("/admin/manage/mechanics", (req, res) => {
   });
 });
 
-// //Add Mech
-// app.post("/admin/manage/mechanics/create", (req, res) => {
-//   const name = req.body.name;
-//   const phone = req.body.phone;
+//Add Mech
+app.post("/admin/manage/mechanic/add", (req, res) => {
+  const m_name = req.body.mech_name;
+  const m_phone = req.body.mech_phone;
 
-//   db.query(
-//     "INSERT INTO mechanic (m_name,m_phone) VALUES(?,?)",
-//     [name, phone],
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.send("Values Inserted");
-//       }
-//     }
-//   );
-// });
+  db.query(
+    "INSERT INTO mechanic (mech_name,phone) VALUES(?,?)",
+    [m_name, m_phone],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values Inserted");
+      }
+    }
+  );
+});
 
-// app.delete("/admin/manage/mechanics/delete/:m_id", (req, res) => {
-//   const m_id = req.params.m_id;
-//   db.query("DELETE FROM mechanic WHERE m_id =?", m_id, (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
+app.delete("/admin/manage/mechanics/delete/:mech_id", (req, res) => {
+  const mech_id = req.params.mech_id;
+  db.query("DELETE FROM mechanic WHERE mech_id =?", mech_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+///Get update list id
+app.get("/admin/manage/mechanic/update/:mech_id", (req, res) => {
+  const sql = "SELECT * FROM mechanic WHERE mech_id=?";
+  const id = req.params.mech_id;
+  db.query(sql, id, (err, result) => {
+    if (err) return res.json({ Error: err });
+    return res.json(result);
+  });
+});
+
+//// update
+app.put("/admin/manage/mechanic/edit/:mech_id", async (req, res) => {
+  const { mech_id } = req.params;
+  const { mech_name, phone } = req.body;
+
+  try {
+    await db.query(
+      `UPDATE mechanic SET mech_name = ?, phone = ? WHERE mech_id = ?`,
+      [mech_name, phone, mech_id]
+    );
+
+    res.json({
+      message: "Mechanic updated successfully!",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong!",
+    });
+  }
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Dashboard/////////////////////////////////////////////

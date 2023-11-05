@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import WorkOffOutlinedIcon from "@mui/icons-material/WorkOffOutlined";
+import WorkHistoryOutlinedIcon from "@mui/icons-material/WorkHistoryOutlined";
+import CountOrderRepair from "../CountOrderRepair";
+
+
 
 
 function BigMech() {
@@ -107,6 +113,50 @@ function BigMech() {
       <div>
         <p>รายการซ่อมที่ดำเนินการซ่อม: {totalInProgress} คัน</p>
         <p>รายการซ่อมที่ซ่อมเสร็จแล้ว: {totalCompleted} คัน</p>
+      </div>
+
+      <h1>Dashboard</h1>
+      <div className="dashboard">
+        <div className="bg-dt">
+          <div className="head-dt">งานทั้งหมด</div>
+          <div className="con-dt">
+            <div className="work-icon">
+              <WorkOutlineOutlinedIcon
+                sx={{ fontSize: 50, color: "#2D4059" }}
+              />
+            </div>
+            <div className="dt-db"></div>
+            <h1 className="dt-num">
+            <CountOrderRepair/>
+            </h1>
+          </div>
+        </div>
+
+        <div className="bg-dt">
+          <div className="head-dt">งานที่เสร็จแล้ว</div>
+          <div className="con-dt">
+            <div className="work-icon">
+              <WorkOffOutlinedIcon color="success" sx={{ fontSize: 50 }} />
+            </div>
+            <div className="dt-db"></div>
+            <h1 className="dt-num">
+            {totalCompleted}
+            </h1>
+          </div>
+        </div>
+
+        <div className="bg-dt">
+          <div className="head-dt">งานรอดำเนินการ</div>
+          <div className="con-dt">
+            <div className="work-icon">
+              <WorkHistoryOutlinedIcon color="warning" sx={{ fontSize: 50 }} />
+            </div>
+            <div className="dt-db"></div>
+            <h1 className="dt-num">
+            {totalInProgress}
+            </h1>
+          </div>
+        </div>
       </div>
     </div>
   );

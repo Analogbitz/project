@@ -16,6 +16,7 @@ import AddCar from "./pages/Add_pages/Addcar";
 import Dashboard from "./pages/Dashboard";
 import Notiline from "./pages/Notiline";
 import EditOrder from "./pages/Edit_pages/EditOrder";
+import EditMech from "./pages/Edit_pages/EditMech";
 
 
 function App() {
@@ -61,6 +62,10 @@ function App() {
                 <Route
                   path="/admin/manage/cars/edit/:car_id"
                   element={<EditCar />}
+                />
+                <Route
+                  path="/admin/manage/mechanic/edit/:mech_id"
+                  element={<EditMech />}
                 />
               </Routes>
             </Box>

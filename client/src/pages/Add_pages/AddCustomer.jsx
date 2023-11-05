@@ -1,10 +1,10 @@
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 
-function AddCar() {
+function AddCustomer() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [line_id, setLineid] = useState("");
@@ -116,4 +116,4 @@ function AddCar() {
   );
 }
 
-export default AddCar;
+export default AddCustomer;
