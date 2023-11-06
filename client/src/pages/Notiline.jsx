@@ -16,13 +16,13 @@ import { yellow } from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import buddhistEra from "dayjs/plugin/buddhistEra";
 
+import th from 'dayjs/locale/th';
 
 dayjs.extend(buddhistEra);
 
 const DateLongTH = (date) => {
-  dayjs.locale('th'); // ตั้งค่าภาษาเป็นภาษาไทย
-
-  return dayjs(date).format('DD/MM/BBBB HH:mm');
+  dayjs.locale(th); // ตั้งค่าภาษาเป็นภาษาไทย
+  return dayjs(date).format("DD MMMM BBBB HH:mm");
 };
 function Notiline() {
  
