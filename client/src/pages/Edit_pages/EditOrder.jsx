@@ -145,7 +145,7 @@ function EditOrder() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="รอรับรถ">
+                <MenuItem value="รับรถเข้าอู่">
                   <em>รับรถเข้าอู่</em>
                 </MenuItem>
                 <MenuItem value="กำลังดำเนินการซ่อม">
