@@ -70,6 +70,7 @@ function Addcar() {
               <MenuItem value="SUZUKI">SUZUKI</MenuItem>
               <MenuItem value="BENZ">BENZ</MenuItem>
               <MenuItem value="BMW">BMW</MenuItem>
+              <MenuItem value="อื่นๆ">อื่นๆ</MenuItem>
             </Select>
           </FormControl>
           
