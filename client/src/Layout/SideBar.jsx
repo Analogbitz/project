@@ -11,6 +11,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import BuildIcon from "@mui/icons-material/Build";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import NoCrashIcon from '@mui/icons-material/NoCrash';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 const SideBar = () => {
   const [isCollapsed, setisCollapsed] = useState(false);
@@ -107,6 +109,21 @@ const SideBar = () => {
                 </Link>
                 <Link to={"/admin/manage/mechanics"} className="sub-menu-bars">
                   <MenuItem icon={<BuildIcon />}>ข้อมูลช่าง</MenuItem>
+                </Link>
+              </SubMenu>
+              <SubMenu
+                icon={<SummarizeIcon />}
+                label="รายการซ่อม"
+                className="menu-bars"
+              >
+                <Link to={"/admin/status_order/waiting_order"} className="sub-menu-bars">
+                  <MenuItem icon={<DirectionsCarIcon />}>รอรับรถเข้าอู่</MenuItem>
+                </Link>
+                <Link to={"/admin/status_order/on_progress_order"} className="sub-menu-bars">
+                  <MenuItem icon={<BuildIcon />}>กำลังดำเนินการซ่อม</MenuItem>
+                </Link>
+                <Link to={"/admin/status_order/finish_order"} className="sub-menu-bars">
+                  <MenuItem icon={<NoCrashIcon />}>ดำเนินการซ่อมเสร็จสิ้น</MenuItem>
                 </Link>
               </SubMenu>
             </Menu>

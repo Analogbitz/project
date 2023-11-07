@@ -18,7 +18,14 @@ const db = mysql.createConnection({
 
 app.get("/", (req, res) => {
   let sql =
-    "SELECT order_repair.order_id,order_repair.create_order , customers.name , cars.plate_license,mechanic.mech_name,order_repair.description , status_order.status_name FROM order_repair INNER JOIN customers ON order_repair.customer_id=customers.cus_id INNER JOIN cars ON order_repair.car_id=cars.car_id INNER JOIN mechanic ON order_repair.mechanic_id=mechanic.mech_id INNER JOIN status_order ON order_repair.status_id=status_order.status_id;";
+  `SELECT order_repair.order_id, order_repair.create_order, customers.name, cars.plate_license, mechanic.mech_name, order_repair.description, status_order.status_name
+    FROM order_repair
+    INNER JOIN customers ON order_repair.customer_id = customers.cus_id
+    INNER JOIN cars ON order_repair.car_id = cars.car_id
+    INNER JOIN mechanic ON order_repair.mechanic_id = mechanic.mech_id
+    INNER JOIN status_order ON order_repair.status_id = status_order.status_id
+    ORDER BY order_repair.create_order DESC;
+    `
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
@@ -181,6 +188,59 @@ app.put("/admin/edit/:order_id", (req, res) => {
     }
   });
 });
+
+app.get("/getOrder_detail/:order_id", (req, res) => {
+  const { order_id } = req.params;
+  const sql = 'SELECT * FROM order_detail WHERE order_id = ?';
+
+  db.query(sql, [order_id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("เกิดข้อผิดพลาดในการดึงข้อมูลรายการซ่อม");
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
+//ลบข้อมูล order
+app.delete("/deleteDetail_list/:order_detail__id", (req, res) => {
+  const order_detail__id = req.params.order_detail__id;
+  db.query(
+    "DELETE FROM order_detail WHERE order_detail_id =?",
+    order_detail__id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+
+app.post('/addOrderDetail/:order_id', (req, res) => {
+  const order_id = req.params.order_id;
+  const {  desc_detail, estimate_price, update_status } = req.body;
+
+  const sql = 'INSERT INTO order_detail (order_id, repair_description, estimate_price, status_update) VALUES (?, ?, ?, ?)';
+  const values = [order_id, desc_detail, estimate_price, update_status];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('เกิดข้อผิดพลาดในการ INSERT:', err);
+      res.send('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      return;
+    }
+    console.log('บันทึกข้อมูลเรียบร้อย');
+    res.send('บันทึกข้อมูลเรียบร้อย');
+  });
+});
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Users/////////////////////////////////////////////
@@ -543,6 +603,72 @@ WHERE mechanic_id = ? AND status_id = 3`; // 2 คือสถานะ "ซ่�
     }
   );
 });
+
+
+//////////////////////status_list/////////////////////////
+//get//
+app.get("/admin/status_order/waiting_order", (req, res) => {
+  let sql =
+  `SELECT order_repair.order_id, order_repair.create_order, customers.name, cars.plate_license, mechanic.mech_name, order_repair.description, status_order.status_name
+    FROM order_repair
+    INNER JOIN customers ON order_repair.customer_id = customers.cus_id
+    INNER JOIN cars ON order_repair.car_id = cars.car_id
+    INNER JOIN mechanic ON order_repair.mechanic_id = mechanic.mech_id
+    INNER JOIN status_order ON order_repair.status_id = status_order.status_id
+    WHERE order_repair.status_id = 1
+    ORDER BY order_repair.create_order DESC;
+    `
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/admin/status_order/on_progress_order", (req, res) => {
+  let sql =
+  `SELECT order_repair.order_id, order_repair.create_order, customers.name, cars.plate_license, mechanic.mech_name, order_repair.description, status_order.status_name
+    FROM order_repair
+    INNER JOIN customers ON order_repair.customer_id = customers.cus_id
+    INNER JOIN cars ON order_repair.car_id = cars.car_id
+    INNER JOIN mechanic ON order_repair.mechanic_id = mechanic.mech_id
+    INNER JOIN status_order ON order_repair.status_id = status_order.status_id
+    WHERE order_repair.status_id = 2
+    ORDER BY order_repair.create_order DESC;
+    `
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/admin/status_order/finish_order", (req, res) => {
+  let sql =
+  `SELECT order_repair.order_id, order_repair.create_order, customers.name, cars.plate_license, mechanic.mech_name, order_repair.description, status_order.status_name
+    FROM order_repair
+    INNER JOIN customers ON order_repair.customer_id = customers.cus_id
+    INNER JOIN cars ON order_repair.car_id = cars.car_id
+    INNER JOIN mechanic ON order_repair.mechanic_id = mechanic.mech_id
+    INNER JOIN status_order ON order_repair.status_id = status_order.status_id
+    WHERE order_repair.status_id = 3
+    ORDER BY order_repair.create_order DESC;
+    `
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+/////////////////////////////////////////////////////////////
+
 app.listen(3001, () => {
   console.log("Hey , yoour server is running on port 3001!");
 });

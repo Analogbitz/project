@@ -21,7 +21,7 @@ function AddCustomer() {
         line_id: line_id,
         address: address,
       })
-      .then();
+      .then(alert("เพิ่มข้อมูลสำเร็จ"));
   };
 
   return (

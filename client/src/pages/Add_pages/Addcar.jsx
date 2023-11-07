@@ -16,6 +16,7 @@ function Addcar() {
 
   const nav = useNavigate();
 
+ 
   const addData = () => {
     axios
       .post("http://localhost:3001/admin/manage/car/add", {
@@ -24,7 +25,7 @@ function Addcar() {
         model: model,
         vin_number: vin_number,
       })
-      .then();
+      .then(alert("เพิ่มข้อมูลสำเร็จ"));
   };
 
   return (

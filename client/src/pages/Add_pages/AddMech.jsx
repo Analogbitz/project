@@ -19,7 +19,7 @@ function AddMech() {
         mech_phone: mech_phone,
         
       })
-      .then();
+      .then(alert("เพิ่มข้อมูลสำเร็จ"));
   };
 
   return (

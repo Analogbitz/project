@@ -17,6 +17,9 @@ import Dashboard from "./pages/Dashboard";
 import Notiline from "./pages/Notiline";
 import EditOrder from "./pages/Edit_pages/EditOrder";
 import EditMech from "./pages/Edit_pages/EditMech";
+import Repair_order from "./pages/status_order/Repair_order";
+import Success_order from "./pages/status_order/Success_order";
+import Waiting_order from "./pages/status_order/waiting_order";
 
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
                 <Route path="/admin/manage/users" element={<UserPage />} />
                 <Route path="/admin/dashboard" element={<Dashboard />} />
                 <Route path="/admin/nontiline" element={<Notiline />} />
+                <Route path="/admin/status_order/waiting_order" element={<Waiting_order />} />
+                <Route path="/admin/status_order/on_progress_order" element={<Repair_order />} />
+                <Route path="/admin/status_order/finish_order" element={<Success_order />} />
                 <Route
                   path="/admin/manage/user/add"
                   element={<Addcustomer />}
